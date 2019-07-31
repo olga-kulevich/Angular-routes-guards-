@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {RouterModule, Routes, PreloadAllModules, PreloadingStrategy, Route} from '@angular/router';
+import {RouterModule, Routes, PreloadingStrategy, Route} from '@angular/router';
 import { HttpClientModule  } from '@angular/common/http';
 
 import { MailModule } from './mail/mail.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthGuard } from './auth/auth.guard';
 
 import { AppComponent } from './app.component';
 import {Observable, of} from "rxjs";
 
 export const ROUTES: Routes = [
-  { path: 'dashboard', data: {preload: false}, loadChildren: './dashboard/dashboard.module#DashboardModule' },
+  { path: 'dashboard', canLoad: [AuthGuard], loadChildren: './dashboard/dashboard.module#DashboardModule' },
   { path: '**', redirectTo: 'mail/folder/inbox' }
 ];
 
@@ -30,6 +32,7 @@ export class CustomPreload implements PreloadingStrategy {
     BrowserModule,
     HttpClientModule,
     MailModule,
+    AuthModule,
     RouterModule.forRoot(ROUTES, {preloadingStrategy: CustomPreload})
   ],
   bootstrap: [
