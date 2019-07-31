@@ -19,4 +19,15 @@ export class MailService {
         })
       )
   }
+
+  getMessage(id: string): Observable<Mail> {
+    return this.http
+      .get(`http://localhost:3000/messages/${id}`)
+      .pipe(
+        map((response: any) => response),
+        catchError ((error: any) => {
+          return throwError(error);
+        })
+      )
+  }
 }
