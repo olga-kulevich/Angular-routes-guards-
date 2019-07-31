@@ -11,10 +11,14 @@ import { MailService } from "./mail.service";
 import {MailViewComponent} from "./components/mail-view/mail-view.component";
 import {MailViewResolver} from "./components/mail-view/mail-view,.resolve";
 
+import {AuthModule} from "../auth/auth.module";
+import {AuthGuard} from "../auth/auth.guard";
+
 export const ROUTES: Routes = [
   {
     path: 'mail',
     component: MailAppComponent,
+    canActivate: [AuthGuard],
     children: [
       { path: 'folder/:name',
         component: MailFolderComponent,
