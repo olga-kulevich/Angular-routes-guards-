@@ -22,7 +22,7 @@ export class MailItemComponent {
   constructor(private router: Router){}
   navigateToMessage(){
     this.router.navigate(
-      ['', {outlets: {pane: ['message', this.message.id]}}]
+      ['/mail', {outlets: {pane: ['message', this.message.id]}}]
     )
   }
 }
